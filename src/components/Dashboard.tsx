@@ -117,10 +117,10 @@ export default function Dashboard({ user, onLogout, onUserUpdate }: {
                     ) : (
                         <>
                             {view === 'home' && <HomeView user={user} transactions={transactions} categories={categories} income={income} expenses={expenses} balance={balance} budgetUsed={budgetUsed} categoryTotals={categoryTotals} currentMonth={currentMonth} setCurrentMonth={setCurrentMonth} onAdd={() => setShowAddTx(true)} />}
-                            {view === 'transactions' && <TransactionsView transactions={transactions} categories={categories} onAdd={() => setShowAddTx(true)} onEdit={setEditTx} onDelete={async (id) => { await fetch('/api/transactions', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) }); fetchData() }} />}
+                            {view === 'transactions' && <TransactionsView transactions={transactions} categories={categories} onAdd={() => setShowAddTx(true)} onEdit={setEditTx} onDelete={async (id: string) => { await fetch('/api/transactions', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) }); fetchData() }} />}
                             {view === 'analytics' && <AnalyticsView transactions={transactions} categories={categories} user={user} categoryTotals={categoryTotals} expenses={expenses} income={income} />}
                             {view === 'ai' && <AIView aiData={aiData} loading={aiLoading} onRefresh={fetchAI} statusColor={statusColor} />}
-                            {view === 'settings' && <SettingsView user={user} categories={categories} onUserUpdate={async (updates) => { const res = await fetch('/api/user', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: user.id, ...updates }) }); const d = await res.json(); onUserUpdate(d); localStorage.setItem('finops_user', JSON.stringify(d)) }} onAddCategory={async (cat) => { await fetch('/api/categories', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...cat, user_id: user.id }) }); fetchData() }} />}
+                            {view === 'settings' && <SettingsView user={user} categories={categories} onUserUpdate={async (updates: Partial<User>) => { const res = await fetch('/api/user', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: user.id, ...updates }) }); const d = await res.json(); onUserUpdate(d); localStorage.setItem('finops_user', JSON.stringify(d)) }} onAddCategory={async (cat: Omit<Category, 'id' | 'user_id'>) => { await fetch('/api/categories', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...cat, user_id: user.id }) }); fetchData() }} />}
                         </>
                     )}
                 </main>
@@ -144,7 +144,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }: {
                     categories={categories}
                     userId={user.id}
                     onClose={() => { setShowAddTx(false); setEditTx(null) }}
-                    onSave={async (data) => {
+                    onSave={async (data: Partial<Transaction>) => {
                         if (editTx) await fetch('/api/transactions', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: editTx.id, ...data }) })
                         else await fetch('/api/transactions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, user_id: user.id }) })
                         fetchData(); setShowAddTx(false); setEditTx(null)

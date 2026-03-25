@@ -1,0 +1,4 @@
+src/components/Dashboard.tsx(120,196): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/components/Dashboard.tsx(123,124): error TS7006: Parameter 'updates' implicitly has an 'any' type.
+src/components/Dashboard.tsx(123,420): error TS7006: Parameter 'cat' implicitly has an 'any' type.
+src/components/Dashboard.tsx(147,36): error TS7006: Parameter 'data' implicitly has an 'any' type.
