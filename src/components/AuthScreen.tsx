@@ -35,7 +35,7 @@ export default function AuthScreen({ onLogin }: { onLogin: (u: User) => void }) 
                         FIN<span style={{ color: 'var(--text)' }}>OPS</span>
                     </h1>
                     <p className="mono text-xs" style={{ color: 'var(--text-dim)' }}>
-                        personal finance
+                        Personal Finance
                     </p>
                 </div>
 
@@ -88,7 +88,7 @@ export default function AuthScreen({ onLogin }: { onLogin: (u: User) => void }) 
                 </div>
 
                 <div className="mono text-center mt-4 text-xs" style={{ color: 'var(--text-muted)' }}>
-                    AI-powered • DevOps-minded • Built for hackers
+                    AI-powered insights • Secure by design • Built for engineers
                 </div>
             </div>
         </div>
