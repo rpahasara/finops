@@ -35,7 +35,7 @@ export default function AuthScreen({ onLogin }: { onLogin: (u: User) => void }) 
                         FIN<span style={{ color: 'var(--text)' }}>OPS</span>
                     </h1>
                     <p className="mono text-xs" style={{ color: 'var(--text-dim)' }}>
-                        personal finance // devops style
+                        personal finance
                     </p>
                 </div>
 
